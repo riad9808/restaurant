@@ -17,7 +17,10 @@ class CreateCommandesTable extends Migration
             $table->bigInteger('id')->primary();
             $table->integer('num_table');
             $table->string('serveur');
-            $table->boolean('valide')->default(false);
+
+            $table->enum('valide',['nonvalide','valide','prete','paye','annuler'])->default('nonvalide');
+
+           // $table->boolean('paye')->default(false);
             $table->float('prix')->nullable();
 
 
