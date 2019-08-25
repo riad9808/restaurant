@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class commande extends JsonResource
+class Commande extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,7 +22,7 @@ class commande extends JsonResource
             'serveur' => $this->serveur,
             'valide' => $this->valide,
             'prix' => $this->prix,
-
+            //'souscoms'=>commande::find($this->id)->subcoms(),
 
             // 'password' => $this->password,
             'created_at' => $this->created_at,

@@ -93,7 +93,8 @@ class produitControl extends Controller
 
         $addedq=(int)$request->get('addedqte');
         //return json_encode(produit::find($usedid));
-        $qt=produit::find($usedid)->pluck('qtstock')[0];
+        $prod=produit::find($usedid);
+        $qt=$prod['qtstock'];
 
         $newqt=$addedq+$qt;
         produit::find($usedid)->update(['qtstock'=>$newqt]);

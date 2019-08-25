@@ -16,7 +16,7 @@ class CreateSubcomsTable extends Migration
         Schema::create('subcoms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('num_commande');
-            $table->foreign('num_commande')->references('id')->on('commandes');
+            $table->foreign('num_commande')->references('id')->on('commandes')->onDelete('cascade');
             $table->bigInteger('prod');
             $table->foreign('prod')->references('id')->on('produits');
             $table->integer('qte');

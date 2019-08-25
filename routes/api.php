@@ -23,6 +23,13 @@ Route::post('signin', 'userControl@signin')->middleware('cors');;
 Route::post('approvisionner','produitControl@update')->middleware('cors');;
 Route::post('delete','produitControl@delete')->middleware('cors');;
 Route::post('addplat','produitControl@store')->middleware('cors');;
+Route::post('commander','commandeControl@store')->middleware('cors');;
+Route::get('comavalider','commandeControl@comavalider')->middleware('cors');;
+Route::post('validateur','commandeControl@validateur')->middleware('cors');;
+Route::post('annulercom','commandeControl@annuler')->middleware('cors');;
+Route::post('prete','commandeControl@prete')->middleware('cors');;
+Route::get('apayer','commandeControl@apayer')->middleware('cors');;
+Route::post('payer','commandeControl@payer')->middleware('cors');;
 
 
 

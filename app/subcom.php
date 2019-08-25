@@ -8,6 +8,6 @@ class subcom extends Model
 {
     protected $table ='subcoms';
     public function produit (){
-        return $this->hasOne('App\Produit');
+        return $this->hasOne('App\Produit','id','prod');
     }
 }

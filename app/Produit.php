@@ -8,5 +8,8 @@ class Produit extends Model
 {
     //
     protected $table='produits';
-    protected $fillable=['qtstock'];
+    protected $fillable=['qtstock','prix'];
+    public function subcoms (){
+        return $this->belongsTo('App\subcoms');
+    }
 }
