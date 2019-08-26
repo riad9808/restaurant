@@ -132,6 +132,25 @@ class userControl extends Controller
      */
     public function destroy(user $user)
     {
-        //
+
+    }
+    public function suppuser(Request $request){
+        $username=$request->get('username');
+        user::where('username',$username)->delete();
+
+        ;
+        return json_encode(true);
+    }
+    public function changepass(Request $request){
+        $localsalt='thisisthesaltthatisusedfortheedlprojectrestaurantappfrombbt';
+        $storedsalt=self::generateRandomString(rand(100, 200));
+        $username=$request->get('username');
+        $newpass=$request->get('newpass');
+        $hashednewpass=hash('sha512',$storedsalt.$newpass.$localsalt);
+        user::where('username',$username)->update(['password'=>$hashednewpass]);
+        user::where('username',$username)->update(['salt'=>$storedsalt]);
+
+        ;
+        return json_encode(true);
     }
 }

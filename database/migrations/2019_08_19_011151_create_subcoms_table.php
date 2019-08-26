@@ -18,7 +18,7 @@ class CreateSubcomsTable extends Migration
             $table->bigInteger('num_commande');
             $table->foreign('num_commande')->references('id')->on('commandes')->onDelete('cascade');
             $table->bigInteger('prod');
-            $table->foreign('prod')->references('id')->on('produits');
+            $table->foreign('prod')->references('id')->on('produits')->onDelete('cascade');
             $table->integer('qte');
             $table->timestamps();
 

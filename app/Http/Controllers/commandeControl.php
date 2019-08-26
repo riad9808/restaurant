@@ -8,8 +8,30 @@ use Illuminate\Http\Request;
 
 class commandeControl extends Controller
 {
+    public function comavaservir (Request $request){
+        $coms=commande::whereIn('valide',['valide','prete','annuler'])->get();
+        $comcomplette=[];
+        $i=0;
+        foreach ($coms as $com){
+            $comcomplette[$i]=$com;
+            $comcomplette[$i]["souscom"]=commande::find($com["id"])->subcoms()->get();
+
+            $subcomsprod=commande::find($com["id"])->subcoms()->get();
+            $j=0;
+            foreach($subcomsprod as $s){
+
+                $comcomplette[$i]["souscom"][$j]["produit"]=$s->produit()->get();
+                $j++;
+            }
+            //$comcomplette[$i]["commande"]["souscom"]["produit"]=commande::find($com["id"])->subcoms()->get();
+            $i++;
+        }
+
+        return json_encode($comcomplette);
+       //return json_encode(commande::where('valide','valide')->get());
+    }
     public function comavalider (Request $request){
-        $coms=commande::where('valide','nonvalide')->get();
+        $coms=commande::whereIn('valide',['nonvalide','valide'])->get();
         $comcomplette=[];
         $i=0;
         foreach ($coms as $com){
@@ -148,6 +170,10 @@ class commandeControl extends Controller
         }
 
         return json_encode($comcomplette);
+    }
+    public function retirercom(Request $request){
+        commande::destroy((int)$request->get('id'));
+        return json_encode(true);
     }
 }
 
