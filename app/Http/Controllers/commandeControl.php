@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class commandeControl extends Controller
 {
     public function comavaservir (Request $request){
-        $coms=commande::whereIn('valide',['valide','prete','annuler'])->get();
+        $par=$request->get('serveur');
+        $coms=commande::where('serveur',$par)->whereIn('valide',['valide','prete','annuler','nonvalide'])->get();
         $comcomplette=[];
         $i=0;
         foreach ($coms as $com){
@@ -174,6 +175,19 @@ class commandeControl extends Controller
     public function retirercom(Request $request){
         commande::destroy((int)$request->get('id'));
         return json_encode(true);
+    }
+    public function lastchanges(Request $request){
+       // $latestcreated=commande::latest()->first();
+       // $lastdatecreated=$latestcreated['created_at'];
+        $latestupdated=commande::latest('updated_at')->first();
+        $lastupdatedate=$latestupdated['updated_at'];
+        return json_encode($lastupdatedate);
+        /*if($lastdatecreated>=$lastupdatedate){
+            return json_encode($lastdatecreated);
+        }
+        else{
+            return json_encode($lastupdatedate);
+        }*/
     }
 }
 

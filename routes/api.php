@@ -30,12 +30,13 @@ Route::post('annulercom','commandeControl@annuler')->middleware('cors');;
 Route::post('prete','commandeControl@prete')->middleware('cors');;
 Route::get('apayer','commandeControl@apayer')->middleware('cors');;
 Route::post('payer','commandeControl@payer')->middleware('cors');;
-Route::get('comaservir','commandeControl@comavaservir')->middleware('cors');;
+Route::post('comaservir','commandeControl@comavaservir')->middleware('cors');;
 
 Route::post('retirercom','commandeControl@retirercom')->middleware('cors');;
 Route::post('changepass','userControl@changepass')->middleware('cors');;
 Route::post('suppuser','userControl@suppuser')->middleware('cors');;
 
+Route::get('lastupdate','commandeControl@lastchanges')->middleware('cors');;
 
 
 
