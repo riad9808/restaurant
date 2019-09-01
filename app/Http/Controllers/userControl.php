@@ -135,13 +135,22 @@ class userControl extends Controller
 
     }
     public function suppuser(Request $request){
+        $x=user::where('username',$request->get('username'))->count();
+        if($x==0){
+            return json_encode(false);
+        }
         $username=$request->get('username');
         user::where('username',$username)->delete();
 
-        ;
+
         return json_encode(true);
     }
     public function changepass(Request $request){
+        $x=user::where('username',$request->get('username'))->count();
+
+        if($x==0){
+            return json_encode(false);
+        }
         $localsalt='thisisthesaltthatisusedfortheedlprojectrestaurantappfrombbt';
         $storedsalt=self::generateRandomString(rand(100, 200));
         $username=$request->get('username');
