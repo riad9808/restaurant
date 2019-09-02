@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\produit;
+use App\Produit;
 use Illuminate\Http\Request;
 use App\Http\Resources\produit as produitRessource;
 use App\Http\Resources\produits as produitsRessource;
@@ -19,7 +19,7 @@ class produitControl extends Controller
     public function index()
     {
         //
-        return produit::all();
+        return Produit::all();
     }
 
     /**
@@ -93,11 +93,11 @@ class produitControl extends Controller
 
         $addedq=(int)$request->get('addedqte');
         //return json_encode(produit::find($usedid));
-        $prod=produit::find($usedid);
+        $prod=Produit::find($usedid);
         $qt=$prod['qtstock'];
 
         $newqt=$addedq+$qt;
-        produit::find($usedid)->update(['qtstock'=>$newqt]);
+        Produit::find($usedid)->update(['qtstock'=>$newqt]);
         return json_encode('operation reussie');
 
     }
@@ -114,6 +114,6 @@ class produitControl extends Controller
     }
     public function delete(Request $request)
     {
-        produit::destroy((int)$request->get('id'));
+        Produit::destroy((int)$request->get('id'));
     }
 }
