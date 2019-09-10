@@ -37,6 +37,8 @@ Route::post('changepass','userControl@changepass')->middleware('cors');;
 Route::post('suppuser','userControl@suppuser')->middleware('cors');;
 
 Route::get('lastupdate','commandeControl@lastchanges')->middleware('cors');;
+Route::get('historique','commandeControl@historique')->middleware('cors');;
+Route::get('listeuser','userControl@listeuser')->middleware('cors');;
 
 
 

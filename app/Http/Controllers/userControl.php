@@ -145,6 +145,10 @@ class userControl extends Controller
 
         return json_encode(true);
     }
+
+    public function listeuser(Request $request){
+        return json_encode(user::all(['id','username','fullname','type','telephone','created_at']));
+    }
     public function changepass(Request $request){
         $x=user::where('username',$request->get('username'))->count();
 

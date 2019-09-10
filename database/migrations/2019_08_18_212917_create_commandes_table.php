@@ -22,6 +22,7 @@ class CreateCommandesTable extends Migration
 
            // $table->boolean('paye')->default(false);
             $table->float('prix')->nullable();
+            $table->string('addresse')->nullable();
 
 
 

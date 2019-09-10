@@ -53,6 +53,30 @@ class commandeControl extends Controller
         return json_encode($comcomplette);
        //return json_encode(commande::where('valide','valide')->get());
     }
+
+    public function historique (Request $request){
+        $coms=commande::where([['valide','paye'],['id','<>','0']])->get();
+        $comcomplette=[];
+        $i=0;
+        foreach ($coms as $com){
+            $comcomplette[$i]=$com;
+            $comcomplette[$i]["souscom"]=commande::find($com["id"])->subcoms()->get();
+
+            $subcomsprod=commande::find($com["id"])->subcoms()->get();
+            $j=0;
+            foreach($subcomsprod as $s){
+
+                $comcomplette[$i]["souscom"][$j]["produit"]=$s->produit()->get();
+                $j++;
+            }
+
+            //$comcomplette[$i]["commande"]["souscom"]["produit"]=commande::find($com["id"])->subcoms()->get();
+            $i++;
+        }
+
+        return json_encode($comcomplette);
+       //return json_encode(commande::where('valide','valide')->get());
+    }
     public function validateur(Request $request)
     {
 
@@ -72,6 +96,11 @@ class commandeControl extends Controller
             $col= \App\Produit::find($idprod);
 
             $quantp=$col['qtstock'];
+            if($quantp<$quantitecom){
+                $c=commande::find($id)->update(['valide'=>'nonvalide']);
+                return json_encode(false);
+
+            }
 
             \App\Produit::find($idprod)->update(['qtstock'=>$quantp-$quantitecom]);
 
@@ -105,6 +134,7 @@ class commandeControl extends Controller
             $commande->id=$usedid;
             $commande->serveur=$request->get('serveur');
             $commande->num_table=$request->get('numtable');
+            $commande->addresse=$request->get('adresse');
            //$s= json_decode($request->get('souscom'));
             //return json_encode($request->get('souscom')[0]["qte"]);
 
